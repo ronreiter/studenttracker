@@ -1,0 +1,93 @@
+body {
+    padding-top: 40px;
+}
+.brand img {
+    margin-top: -6px;
+    margin-bottom: -6px;
+}
+
+.tweets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tweets li {
+    min-height: 90px;
+}
+
+.tweets li .remove {
+    float: left;
+    cursor: pointer;
+}
+
+.tweets li .star {
+	display: inline-block;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.students .remove {
+    float: left;
+    cursor: pointer;
+}
+
+.subjects .remove {
+    float: left;
+    cursor: pointer;
+}
+
+.tweets li .text {
+	display: inline-block;
+}
+
+.avatar {
+    float: right;
+    width: 80px;
+    padding-left: 20px;
+    cursor: pointer;
+    color: #08C;
+
+}
+.avatar img {
+    height: 80px;
+}
+
+.avatar .name {
+    text-align: center;
+    white-space: nowrap;
+   	overflow: hidden;
+   	text-overflow: ellipsis;
+
+}
+
+.tags a, .text a {
+    display: inline-block;
+    direction: ltr;
+    border-radius: 3px;
+    border: 1px solid #cccccc;
+    padding: 0px 5px;
+    margin: 2px;
+    background: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.tags a:hover, .text a:hover {
+    text-decoration: none;
+    background: #dddddd;
+}
+
+#dashboard {
+    display: none;
+}
+
+.tweet .info {
+    margin-top: 20px;
+}
+.tweet .info span {
+    padding-left: 30px;
+}
+.nav-list .nav-list {
+    padding-left: 0;
+}

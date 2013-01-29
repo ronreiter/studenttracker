@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="/css/bootstrap.rtl.css"/>
+    <link rel="stylesheet" href="/css/daterangepicker.css"/>
+    <link rel="stylesheet" href="/css/font-awesome.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <script data-main="/js/main" src="/js/libs/require/require.js"></script>
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class="container">
+
+			<a class="brand" href="/"><img src="{{ logo }}" style="height: 30px"> {{ title }}</a>
+            <!--
+            <ul class="nav">
+                <li class="active"><a href="/">עמוד ראשי</a></li>
+            </ul>
+            -->
+            <form class="navbar-search pull-right" action="" style="width: 550px">
+                <input type="text" class="search-query pull-right" placeholder="חפש" style="width: 240px; margin-left: 10px">
+                <div class="input-prepend pull-right">
+                    <span class="add-on"><i class="icon-calendar"></i></span><input type="text" name="search-range" id="search-range" style="width: 170px">
+                </div>
+                <button class="btn btn-primary btn-small" type="submit" style="margin-top: 2px; margin-right: 5px">חפש</button>
+            </form>
+            <ul class="nav pull-right">
+                <li class="dropdown">
+                    <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user" style="margin-left: 10px"></i>{{ user.username if "user" in globals() else "אורח" }} <b class="caret"></b></a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                        <li><a href="/logout">יציאה</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+		</div>
+	</div><!-- /navbar-inner -->
+</div>
+{% block content %}{% end %}
+</body>
+</html>

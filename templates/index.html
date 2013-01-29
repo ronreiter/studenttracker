@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="span3">
+            <ul class="nav nav-list well" style="margin-top: 20px">
+                <li class="nav-header">מקצועות</li>
+                <li><a href="" class="add-subject">הוספת מקצוע</a></li>
+                <li><a href="" class="add-lesson">הוספת שיעור</a></li>
+                <ul class="nav subjects"></ul>
+                <li class="nav-header">חניכים</li>
+                <li><a href="" class="add-student">הוספת חניך</a></li>
+                <ul class="nav students"></ul>
+            </ul>
+        </div>
+        <div class="span9">
+            <div class="main-page">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="add-student-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="add-student-modal" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>הוסף חניך</h3>
+  </div>
+  <div class="modal-body">
+        <form class="bs-docs-example form-horizontal add-student-form">
+            <div class="control-group">
+                <label class="control-label" for="student-name">שם חניך</label>
+                <div class="controls">
+                    <input type="text" id="student-name">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="student-number">מספר חניך</label>
+                <div class="controls">
+                    <input type="text" class="input-small" id="student-number">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="student-personal-number">מספר אישי</label>
+                <div class="controls">
+                    <input type="text" class="input-medium" id="student-personal-number">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="student-personal-id">תעודת זהות</label>
+                <div class="controls">
+                    <input type="text" class="input-medium" id="student-personal-id">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="student-ldap-username">שם משתמש LDAP</label>
+                <div class="controls">
+                    <input type="text" class="input-medium" id="student-ldap-username">
+                </div>
+            </div>
+
+        </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">סגור</button>
+    <button class="btn btn-primary add-student-button">הוסף חניך</button>
+  </div>
+</div>
+
+<div id="add-subject-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="add-subject" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>הוסף מקצוע</h3>
+    </div>
+    <div class="modal-body">
+        <form class="bs-docs-example form-horizontal add-subject-form">
+            <div class="control-group">
+                <label class="control-label" for="subject-name">שם מקצוע</label>
+                <div class="controls">
+                    <input type="text" id="subject-name">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">סגור</button>
+        <button class="btn btn-primary add-subject-button">הוסף מקצוע</button>
+    </div>
+</div>
+
+<div id="add-lesson-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="add-lesson" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>הוסף מקצוע</h3>
+    </div>
+    <div class="modal-body">
+        <form class="bs-docs-example form-horizontal add-lesson-form">
+            <div class="control-group">
+                <label class="control-label" for="lesson-name">מקצוע</label>
+                <div class="controls">
+                    <select id="subject-select"></select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="lesson-name">שם שיעור</label>
+                <div class="controls">
+                    <input type="text" id="lesson-name">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">סגור</button>
+        <button class="btn btn-primary add-lesson-button">הוסף שיעור</button>
+    </div>
+</div>
+{% end %}

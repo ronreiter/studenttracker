@@ -1,0 +1,52 @@
+
+<h3>כתוב סטטוס</h3>
+<form class="form-horizontal write-tweet">
+    <div class="control-group">
+        <input type="text" style="width: 600px" class="tweet-text"/>
+        <button class="btn btn-primary">הוספה</button><br/>
+    </div>
+    <div class="control-group">
+        <label class="control-label" style="text-align: right">חניך</label>
+        <div class="controls">
+            <select class="student-select"></select>
+
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" style="text-align: right">סוג הערה</label>
+        <div class="controls">
+            <label class="checkbox inline">
+                <input name="tweet-type" value="personal" type="radio" style="margin-top: 0"> אישי
+            </label>
+            <label class="checkbox inline">
+                <input  name="tweet-type" value="professional" type="radio" style="margin-top: 0"> מקצועי
+            </label>
+
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" style="text-align: right">מקצוע</label>
+        <div class="controls">
+            <select class="subject-select"></select>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" style="text-align: right">שיעור</label>
+        <div class="controls">
+            <select class="lesson-select"></select>
+        </div>
+    </div>
+
+</form>
+<h3>סטטוסים</h3>
+<ul class="tweets"></ul>
+<!--
+<ul>
+    {% for tweet in tweets %}
+        <li>
+            <div>{{ escape(tweet.text) }}</div>
+            <div class="date">{{ tweet.created }}</div>
+        </li>
+    {% end %}
+</ul>
+-->

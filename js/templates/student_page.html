@@ -1,0 +1,71 @@
+
+<h3>דף סטודנט - {{ name }}</h3>
+<form class="form-horizontal">
+    <div class="control-group">
+        <label class="control-label">שם</label>
+        <div class="controls">
+            <input type="text" class="student-name input-medium" value="{{ name }}"/>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">מספר קורסי</label>
+        <div class="controls">
+            <input type="text" class="student-number input-small" value="{{ number }}"/>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">מספר אישי</label>
+        <div class="controls">
+            <input type="text" class="student-personal-number input-medium" value="{{ personal_number }}"/>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">תעודת זהות</label>
+        <div class="controls">
+            <input type="text" class="student-personal-id input-medium" value="{{ personal_id }}"/>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">שם משתמש LDAP</label>
+        <div class="controls">
+            <input type="text" class="student-ldap-username input-medium" value="{{ ldap_username }}"/>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">תמונה</label>
+        <div class="controls">
+            <img class="student-image-preview" style="width: 80px; height: 80px" src="{{ image }}" /> <!--src="/students/{{ id }}/image"-->
+            <div><input type="file" class="student-image"></div>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button class="btn btn-primary add-student-button">שמור</button>
+        </div>
+    </div>
+</form>
+
+<ul class="nav nav-tabs">
+    <li><a href="#starred" data-toggle="tab">הערות מסומנות</a></li>
+    <li><a href="#personal" data-toggle="tab">הערות אישיות</a></li>
+    <li><a href="#professional" data-toggle="tab">הערות מקצועיות</a></li>
+</ul>
+<div class="tab-content">
+    <div class="tab-pane active" id="starred">
+        <h3>הערות מסומנות</h3>
+        <ul class="tweets starred-tweets"></ul>
+    </div>
+    <div class="tab-pane" id="personal">
+        <h3>הערות אישיות</h3>
+        <ul class="tweets personal-tweets"></ul>
+
+    </div>
+    <div class="tab-pane" id="professional">
+        <h3>הערות מקצועיות</h3>
+        <ul class="tweets professional-tweets"></ul>
+
+    </div>
+</div>
+
+
+

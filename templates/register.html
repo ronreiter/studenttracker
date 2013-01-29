@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    {% if error == "user-exists" %}
+    <div class="alert alert-danger" style="margin-top: 20px">שם המשתמש כבר קיים!</div>
+    {% end %}
+    {% if error == "password-not-confirmed" %}
+    <div class="alert alert-danger" style="margin-top: 20px">וידוא הסיסמה אינו תואם לסיסמה.</div>
+    {% end %}
+    {% if error == "wrong-admin-password" %}
+    <div class="alert alert-danger" style="margin-top: 20px">סיסמת המנהל לא נכונה.</div>
+    {% end %}
+
+    <div class="row">
+        <h1 class="offset2" style="margin-top: 30px">הרשמה</h1>
+        <form class="well form-horizontal span8 offset2" method="post">
+            <div class="control-group">
+                <label class="control-label" for="username">שם משתמש</label>
+                <div class="controls">
+                    <input type="text" name="username" id="username" placeholder="שם משתמש">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="username">שנה</label>
+                <div class="controls">
+                    <input type="text" name="year" id="year" placeholder="לדוגמה: 2013">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="password">סיסמה</label>
+                <div class="controls">
+                    <input type="password" name="password" id="password" placeholder="סיסמה">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="confirm">ודא סיסמה</label>
+                <div class="controls">
+                    <input type="password" name="confirm" id="confirm" placeholder="הכנס סיסמה בשנית">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="admin-password">סיסמת מנהל</label>
+                <div class="controls">
+                    <input type="password" name="admin-password" id="admin-password" placeholder="הכנס סיסמת מנהל">
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn btn-large btn-primary">הירשם</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% end %}

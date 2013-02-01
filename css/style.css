@@ -38,7 +38,7 @@ body {
 }
 
 .tweets li .text {
-	display: inline;
+	display: inline-block;
 }
 
 .avatar {

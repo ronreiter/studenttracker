@@ -2,3 +2,5 @@
 dist
 .idea
 env
+*.swp
+*.egg-info

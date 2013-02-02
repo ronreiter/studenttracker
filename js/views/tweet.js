@@ -34,6 +34,7 @@ define([
 				type : this.model.get("type") == "personal" ? "אישי" : "מקצועי",
 				starclass : this.model.get("starred") ? "icon-star" : "icon-star-empty",
 				tags : this.model.get("tags"),
+                user : this.model.get("user"),
 				lesson_name : app.lessons.get(this.model.get("lesson")) ? app.lessons.get(this.model.get("lesson")).get("name") : "ללא"
 			}));
 			return this;

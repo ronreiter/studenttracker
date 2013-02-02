@@ -91,6 +91,7 @@ class TweetsHandler(tornado.web.RequestHandler):
                 "tags" : tweet.tags,
                 "created" : calendar.timegm(tweet.created.timetuple()),
                 "lesson" : str(tweet.lesson.id) if tweet.lesson else None,
+                "user" : tweet.user.username,
             })
 
         self.write(json.dumps(tweets))

@@ -50,7 +50,7 @@ define(["jquery", "underscore", "backbone", "handlebars", "text!templates/search
 			container.empty();
 			_.each(tweets.getOrderedTweets(), _.bind(function(tweet) {
 				var tweetView = new TweetView({ model: tweet });
-				container.prepend(tweetView.$el);
+				container.append(tweetView.$el);
 				tweetView.render();
 			}, this));
 		},

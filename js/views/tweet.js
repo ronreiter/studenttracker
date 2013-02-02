@@ -6,6 +6,9 @@ define([
 	"models/tweet",
 	"text!templates/tweet.html"
 ], function($, _, Backbone, Handlebars, Tweet, tweetTemplate) {
+    function formatTime(time_string) {
+        return time_string.length == 1 ? "0" + time_string : time_string;
+    }
 	return Backbone.View.extend({
 		className: "tweet well",
 		model: Tweet,
@@ -23,8 +26,10 @@ define([
 		},
 		render: function() {
 			var createdDate = new Date(this.model.get("created") * 1000);
-            var dateString = createdDate.getDate() + "/" + (createdDate.getMonth() + 1) + "/" + (createdDate.getFullYear())
-            dateString += " " + createdDate.getHours()+":"+createdDate.getMinutes()+":"+createdDate.getSeconds()
+            var dateString = createdDate.getDate() + "/" + (createdDate.getMonth() + 1) + "/" + (createdDate.getFullYear());
+            dateString += " " + createdDate.getHours() + ":";
+            dateString += formatTime(createdDate.getMinutes()) + ":";
+            dateString += formatTime(createdDate.getSeconds());
 
 			this.student = app.students.get(this.model.get("student"));
 			this.$el.html(this.template({
@@ -56,5 +61,5 @@ define([
 			router.navigate("/search/" + encodeURIComponent($(e.target).text()), {trigger: true});
 		}
 
-	});
+    });
 });

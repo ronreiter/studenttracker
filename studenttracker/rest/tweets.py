@@ -10,6 +10,19 @@ def get_raw_tweet(query):
     return re.sub("[@#]\S+\s?", "", query).strip()
 
 class TweetsHandler(tornado.web.RequestHandler):
+    def _parse_query_string(self, query_string):
+        """
+        Parses the query string in the form of
+        @(number) - student number
+        #(tag) - a tag
+        :param query_string: the query search string
+        :return: students, tags parsed from the query string
+        """
+        students = [int(student_number) for student_number in re.findall("@(\S+)", query_string) if student_number.isdigit()]
+        tags = re.findall("#(\S+)", query_string)
+
+        return students, tags
+
     @user_required
     def get(self):
         tweets = []
@@ -22,9 +35,8 @@ class TweetsHandler(tornado.web.RequestHandler):
         subject_id = self.get_argument("subject", None)
         student_id = self.get_argument("student", None)
 
-        if query:
-            students = [int(student_number) for student_number in re.findall("@(\S+)", query) if student_number.isdigit()]
-            tags = re.findall("#(\S+)", query)
+        if query: # the search bar search query
+            students, tags = self._parse_query_string(query)
 
             if students:
                 queried_students = Student.objects.filter(number__in = students, year = self.user.year)

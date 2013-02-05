@@ -39,7 +39,7 @@ class Tweet(Document):
 	starred = BooleanField(default=False)
 
 	def serialize(self):
-		return json.dumps({
+		return {
 			"id" : str(self.id),
 			"created" : calendar.timegm(self.created.timetuple()),
 			"text" : self.text,
@@ -48,4 +48,7 @@ class Tweet(Document):
 			"type" : self.type,
 			"tags" : self.tags,
 			"starred" : self.starred,
-		})
+			"lesson" : str(self.lesson.id) if self.lesson else None,
+			"username" : self.user.username # redundant
+		}
+

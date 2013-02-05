@@ -1,14 +1,16 @@
 <div class="remove"><i class="icon-remove"></i></div>
+<div class="edit"><i class="icon-edit"></i></div>
 <div class="avatar">
     <img src="{{ student.image }}"/>
     <div class="name">{{ student.name }}</div>
 </div>
 <div class="star"><i class="{{ starclass }}"></i></div>
 <div class="text">{{{ text }}}</div>
+<input class="edit-text" value="{{{ raw_text }}}"/>
 <div class="info">
     <span class="type" style="margin-top: 20px">סוג הערה: <b>{{ type }}</b></span>
     <span class="date">תאריך: {{ created }}</span>
     <span class="lesson">שיעור: {{ lesson_name }}</span>
-    <span class="author">מחבר: {{ user }}</span>
+    <span class="author">מחבר: {{ username }}</span>
 </div>
 <div class="tags">תגיות: {{#each tags}}<a>{{ this }}</a>{{/each}}</div>

@@ -6,6 +6,8 @@ import itertools
 import re
 import calendar
 
+PAGE_SIZE = 20
+
 def get_raw_tweet(query):
     return re.sub("[@#]\S+\s?", "", query).strip()
 
@@ -34,6 +36,7 @@ class TweetsHandler(tornado.web.RequestHandler):
         lesson_id = self.get_argument("lesson", None)
         subject_id = self.get_argument("subject", None)
         student_id = self.get_argument("student", None)
+        page = int(self.get_argument("page", 0))
 
         if query: # the search bar search query
             students, tags = self._parse_query_string(query)
@@ -81,18 +84,8 @@ class TweetsHandler(tornado.web.RequestHandler):
         #if lesson_ids:
         tweet_query = tweet_query.filter(lesson__in = lesson_ids)
 
-        for tweet in tweet_query.order_by("-created"):
-            tweets.append({
-                "id" : str(tweet.id),
-                "text" : tweet.text,
-                "student" : str(tweet.student.id),
-                "type" : tweet.type,
-                "starred" : tweet.starred,
-                "tags" : tweet.tags,
-                "created" : calendar.timegm(tweet.created.timetuple()),
-                "lesson" : str(tweet.lesson.id) if tweet.lesson else None,
-                "user" : tweet.user.username,
-            })
+        for tweet in tweet_query.order_by("-created")[page*PAGE_SIZE:page*PAGE_SIZE+PAGE_SIZE]:
+            tweets.append(tweet.serialize())
 
         self.write(json.dumps(tweets))
 
@@ -112,7 +105,7 @@ class TweetsHandler(tornado.web.RequestHandler):
         #for client in clients:
         #	client.send("update")
 
-        self.write(new_tweet.serialize())
+        self.write(json.dumps(new_tweet.serialize()))
 
 class TweetHandler(tornado.web.RequestHandler):
     @user_required
@@ -125,7 +118,7 @@ class TweetHandler(tornado.web.RequestHandler):
         tweet_to_update.tags = data["tags"]
         tweet_to_update.save()
 
-        self.write(tweet_to_update.serialize())
+        self.write(json.dumps(tweet_to_update.serialize()))
 
     @user_required
     def delete(self, id):

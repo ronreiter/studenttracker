@@ -6,14 +6,17 @@ define(["jquery", "underscore", "backbone",	"text!templates/dashboard.html", "vi
 			"change .subject-select" : "renderLessonSelector"
 		},
 		initialize: function() {
+			_.bindAll(this, "scroll");
 			this.tweets = new TweetsCollection();
 			this.tweets.bind("reset", this.renderAllTweets, this);
-			this.tweets.bind("add", this.renderAllTweets, this);
-			this.tweets.fetch();
+			this.tweets.bind("add", this.renderOneTweet, this);
+			this.tweets.fetchFirst();
 
 			app.students.bind("all", this.renderStudentSelector, this);
 			app.subjects.bind("all", this.renderSubjectSelector, this);
 			app.lessons.bind("all", this.renderLessonSelector, this);
+
+			$(window).bind("scroll", this.scroll);
 
 		},
 		render: function() {
@@ -31,7 +34,15 @@ define(["jquery", "underscore", "backbone",	"text!templates/dashboard.html", "vi
 			return this;
 		},
 		refetch: function() {
-			this.tweets.fetch();
+			this.fetching = false;
+			this.tweets.fetchFirst();
+		},
+		scroll : function() {
+			if (!this.fetching && $(document.body).height() - ($(window).scrollTop()+$(window).height())<0) {
+				console.log("scroll");
+				this.fetching = true;
+				this.tweets.fetchNext();
+			}
 		},
 		writeTweet: function(e) {
 			if (this.$tweetText.val().length == 0) {
@@ -68,17 +79,22 @@ define(["jquery", "underscore", "backbone",	"text!templates/dashboard.html", "vi
 			this.$tweetText.val("");
 			return false;
 		},
-		renderAllTweets: function() {
+		renderAllTweets: function(collection, options) {
+			this.fetching = false;
+
 			if (app.students.length == 0) {
 				return;
 			}
 
 			this.$tweetsDiv.empty();
-			_.each(this.tweets.getOrderedTweets(), _.bind(function(tweet) {
-				var tweetView = new TweetView({ model: tweet });
-				this.$tweetsDiv.append(tweetView.$el);
-				tweetView.render();
-			}, this));
+			this.tweets.each(_.bind(this.renderOneTweet, this));
+		},
+		renderOneTweet: function(tweet) {
+			this.fetching = false;
+
+			var tweetView = new TweetView({ model: tweet });
+			this.$tweetsDiv.append(tweetView.$el);
+			tweetView.render();
 		},
 		renderStudentSelector: function() {
 			if (app.students.length == 0) {
@@ -130,6 +146,8 @@ define(["jquery", "underscore", "backbone",	"text!templates/dashboard.html", "vi
 			app.students.unbind("all", this.renderStudentSelector);
 			app.students.unbind("all", this.renderSubjectSelector);
 			app.students.unbind("all", this.renderLessonSelector);
+
+			$(window).unbind("scroll");
 
 		}
 

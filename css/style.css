@@ -16,15 +16,23 @@ body {
     min-height: 90px;
 }
 
-.tweets li .remove {
+.tweets li .remove, .tweets li .edit {
     float: left;
     cursor: pointer;
 }
 
+.tweets li .edit {
+	float: left;
+	padding-left: 3px;
+	padding-top: 1px;
+	cursor: pointer;
+}
+
 .tweets li .star {
 	display: inline-block;
-	font-size: 20px;
+	font-size: 16px;
 	cursor: pointer;
+	vertical-align: middle;
 }
 
 .students .remove {
@@ -39,6 +47,11 @@ body {
 
 .tweets li .text {
 	display: inline;
+}
+
+.tweets li .edit-text {
+	display: none;
+	width: 480px;
 }
 
 .avatar {

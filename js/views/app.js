@@ -52,7 +52,7 @@ define([
 			"click .add-lesson" : "addLessonModal",
 			"click .add-lesson-button" : "addLesson",
 			"submit .add-lesson-form" : "addLesson",
-			"click .brand" : "home"
+			"click .brand" : "home",
 		},
 		initialize: function() {
 			_.bindAll(this, "onOpen", "onMessage", "onClose");

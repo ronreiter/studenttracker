@@ -20,12 +20,13 @@ define(["jquery", "underscore", "backbone", "handlebars", "text!templates/studen
 			return this;
 		},
 		refetch: function() {
-			this.tweets.fetch({ url: "/tweets?" + $.param({ student : this.model.id })});
+			this.tweets.fetchFirst({ student : this.model.id });
+			//this.tweets.fetch({ url: "/tweets?" + $.param({ student : this.model.id })});
 		},
 		renderTweets: function(container, tweets) {
 			container.empty();
 			_.each(tweets, _.bind(function(tweet) {
-				var tweetView = new TweetView({ model: tweet });
+				var tweetView = new TweetView({ model: tweet, collection: this.tweets });
 				container.append(tweetView.$el);
 				tweetView.render();
 			}, this));
@@ -73,6 +74,13 @@ define(["jquery", "underscore", "backbone", "handlebars", "text!templates/studen
 				imagePreview.attr("src", e.target.result);
 			}, this);
 			reader.readAsDataURL(studentImage[0]);
+		},
+		scroll : function() {
+			if (!this.fetching && $(document.body).height() - ($(window).scrollTop()+$(window).height())<0) {
+				console.log("scroll");
+				this.fetching = true;
+				this.tweets.fetchNext();
+			}
 		}
 	});
 });

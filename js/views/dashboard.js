@@ -79,7 +79,7 @@ define(["jquery", "underscore", "backbone",	"text!templates/dashboard.html", "vi
 			this.$tweetText.val("");
 			return false;
 		},
-		renderAllTweets: function(collection, options) {
+		renderAllTweets: function() {
 			this.fetching = false;
 
 			if (app.students.length == 0) {
@@ -92,7 +92,7 @@ define(["jquery", "underscore", "backbone",	"text!templates/dashboard.html", "vi
 		renderOneTweet: function(tweet) {
 			this.fetching = false;
 
-			var tweetView = new TweetView({ model: tweet });
+			var tweetView = new TweetView({ model: tweet, collection: this.tweets });
 			this.$tweetsDiv.append(tweetView.$el);
 			tweetView.render();
 		},
@@ -141,7 +141,7 @@ define(["jquery", "underscore", "backbone",	"text!templates/dashboard.html", "vi
 		},
 		close: function() {
 			this.tweets.unbind("reset", this.renderAllTweets);
-			this.tweets.unbind("add", this.renderAllTweets);
+			this.tweets.unbind("add", this.renderOneTweet);
 
 			app.students.unbind("all", this.renderStudentSelector);
 			app.students.unbind("all", this.renderSubjectSelector);

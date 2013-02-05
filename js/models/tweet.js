@@ -1,5 +1,6 @@
 define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 	return Backbone.Model.extend({
+		urlBase: "/tweets",
 		serialize: function() {
 			return {
 				text : this.get("text"),

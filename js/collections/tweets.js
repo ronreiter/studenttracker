@@ -6,20 +6,24 @@ define(["jquery", "underscore", "backbone", "models/tweet"], function($, _, Back
 			return _.sortBy(this.models, function(tweet) { return -tweet.get("created") });
 		},
 
-		fetchFirst: function() {
+		fetchFirst: function(options) {
+			this.fetchOptions = options ? options : {};
 			this.page = 0;
+
+			this.fetchOptions.page = this.page;
+
 			this.fetch({
-				data: {
-					page: this.page
-				}
-			})
+				data : this.fetchOptions
+			});
 		},
 		fetchNext: function() {
 			this.page += 1;
+
+			this.fetchOptions.page = this.page;
+
+
 			this.fetch({
-				data: {
-					page: this.page
-				},
+				data: this.fetchOptions,
 				update: true
 			});
 		}

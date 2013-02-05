@@ -6,9 +6,13 @@ define(["jquery", "underscore", "backbone", "handlebars", "text!templates/search
 
 		},
 		initialize: function(options) {
+			_.bindAll(this, "scroll");
+
 			this.tweets = new TweetsCollection();
 			this.tweets.bind("reset", this.renderAllTweets, this);
-			this.tweets.bind("add", this.renderAllTweets, this);
+			this.tweets.bind("add", this.renderOneTweet, this);
+
+			$(window).bind("scroll", this.scroll);
 
 			// do we really need that?
 			this.options = options;
@@ -17,49 +21,63 @@ define(["jquery", "underscore", "backbone", "handlebars", "text!templates/search
 		},
 		render: function() {
 			this.$el.html(this.template());
-			this.$searchResults = this.$el.find(".search-results");
+			this.$tweetsDiv = this.$el.find(".search-results");
 			return this;
 		},
 		refetch: function() {
 			var options = this.options;
 
 			if (options.query) {
-				this.tweets.fetch({ url: "/tweets?" + $.param({
+				this.tweets.fetchFirst({
 					q : options.query,
 					start : options.start,
 					end : options.end
-				})});
+				});
 			} else if (options.lesson) {
-				this.tweets.fetch({ url: "/tweets?" + $.param({
+				this.tweets.fetchFirst({
 					lesson : options.lesson
-				})
                 });
 			} else if (options.subject) {
-				this.tweets.fetch({ url: "/tweets?" + $.param({
+				this.tweets.fetchFirst({
 					subject : options.subject
-				})});
+				});
 			} else if (options.start && options.end) { //filter by date only
-                this.tweets.fetch({ url: "/tweets?" + $.param({
+                this.tweets.fetchFirst({
                     start : options.start,
                     end : options.end
-                })
                 });
             }
 		},
-		renderTweets: function(container, tweets) {
-			container.empty();
-			_.each(tweets.getOrderedTweets(), _.bind(function(tweet) {
-				var tweetView = new TweetView({ model: tweet });
-				container.append(tweetView.$el);
-				tweetView.render();
-			}, this));
-		},
 		renderAllTweets: function() {
-			this.renderTweets(this.$searchResults, this.tweets);
+			this.fetching = false;
+
+			if (app.students.length == 0) {
+				return;
+			}
+
+			this.$tweetsDiv.empty();
+			this.tweets.each(_.bind(this.renderOneTweet, this));
+		},
+		renderOneTweet: function(tweet) {
+			this.fetching = false;
+
+			var tweetView = new TweetView({ model: tweet, collection: this.tweets });
+			this.$tweetsDiv.append(tweetView.$el);
+			tweetView.render();
 		},
 		close: function() {
 			this.tweets.unbind("reset", this.renderAllTweets);
-			this.tweets.unbind("add", this.renderAllTweets);
+			this.tweets.unbind("add", this.renderOneTweet);
+
+			$(window).unbind("scroll");
+		},
+		scroll : function() {
+			if (!this.fetching && $(document.body).height() - ($(window).scrollTop()+$(window).height())<0) {
+				console.log("scroll");
+				this.fetching = true;
+				this.tweets.fetchNext();
+			}
 		}
+
 	});
 });

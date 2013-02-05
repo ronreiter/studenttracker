@@ -28,6 +28,7 @@ define([
 			this.model.bind("change", this.render, this);
 		},
 		render: function() {
+
 			var createdDate = new Date(this.model.get("created") * 1000);
             var dateString = createdDate.getDate() + "/" + (createdDate.getMonth() + 1) + "/" + (createdDate.getFullYear());
             dateString += " " + createdDate.getHours() + ":";
@@ -48,6 +49,7 @@ define([
 			}));
 
 			this.$editText = this.$el.find(".edit-text");
+
 			return this;
 		},
 		removeTweet: function() {
@@ -58,9 +60,18 @@ define([
 			app.filterByStudent(this.student.id);
 		},
 		toggleStar: function() {
+			// TODO: dear god, please tell me why this happens!
+			if (!this.model.collection) {
+				this.model.collection = this.collection;
+			}
+
 			this.model.save({starred : !this.model.get("starred")})
 		},
 		toggleEdit: function() {
+			if (!this.model.collection) {
+				this.model.collection = this.collection;
+			}
+
 			this.model.set("editing", !this.model.get("editing"));
 
 			if (this.model.get("editing")) {
